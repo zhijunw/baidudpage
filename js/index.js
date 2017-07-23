@@ -4,14 +4,13 @@ $(window).ready(function() {
     returntop();
     showli();
     showHot();
-    closeSkin();
-    changeskin();
+    closeSkin()
+    changeskin()
     listenScorll();
     deleteSetup();
     addSetup();
     openAdd();
-    weather();
-});
+})
 
 function showMore() {
     var $more = $(".more"); //更多产品
@@ -20,75 +19,26 @@ function showMore() {
     var $submenu = $(".submenu");
 
     $more.on("mouseover", function() {
-        $submore.fadeIn(100);
-    });
+        $submore.fadeIn(100)
+    })
     $submore.on("mouseover", function() {
-        $submore.fadeIn(100);
-    });
+        $submore.fadeIn(100)
+    })
     $submore.on("mouseleave", function() {
-        $submore.fadeOut(100);
-    });
+        $submore.fadeOut(100)
+    })
     $setup.hover(function() {
         $submenu.fadeIn(50);
         $submenu.hover(function() {
             $submenu.fadeIn(50);
         }, function() {
             $submenu.fadeOut(50);
-        });
+        })
 
     }, function() {
-        $submenu.fadeOut(50);
-    });
+        $submenu.fadeOut(50)
+    })
 }
-/**
- *天气显示
- * 
- */
-function weather() {
-    // 获取到天气div
-    var $weather = $('#weatherShow');
-    var $otherDay = $('#otherDay');
-    $.ajax({
-        url: 'http://v.juhe.cn/weather/index',
-        type: 'get',
-        dataType: 'jsonp',
-        data: {
-            fomat: 1,
-            cityname: '深圳',
-            key: 'f99fbc2ae2567d991714acaf473d7eff'
-        },
-        success: function(data) {
-            console.log(data);
-            $('#icont').before('<span id="city"></span>');
-            // 获取到城市
-            var $cityShow = $('#city').html(data.result.today.city);
-            // 获取到温度
-            var $temShow = $('<span>').html(data.result.today.temperature);
-            // 获取到星期
-            var $weekShow = $('<span>').html(data.result.today.week);
-            $weather.append($temShow, $weekShow);
-            var future = data.result.future;
-            for (var i in future) {
-                console.log(future[i]);
-                // 这里是下拉菜单
-                var $data = future[i].date;
-                var $month = $data.slice(4, 6) + '月';
-                var $day = $data.slice(6, 8) + '日';
-                var $Date = $month.concat($day);
-                var $todayData = $('<p></p>').html($Date);
-                // $('#ul-menu').before($todayData);
-                // 下拉菜单--温度
-                var $pTem = $('<p>').html(future[i].temperature);
-                var $pWeek = $('<p>').html(future[i].week);
-                var $pWeather = $('<p>').html(future[i].weather);
-               var lis = $('<li>').append($todayData,$pTem, $pWeek, $pWeather);
-                $('#ul-menu').append(lis);
-            }
-        }
-    });
-}
-
-
 /**
  * @return {滑动时百度搜索框置顶}
  */
@@ -101,7 +51,7 @@ function navchange() {
             $cgnav.removeClass("fixed-search").addClass("head-search");
 
         }
-    });
+    })
 
 }
 /**
@@ -115,13 +65,11 @@ function returntop() {
         } else {
             $returntop.fadeOut(300);
         }
-    });
+    })
     $returntop.click(function() {
-        $('body,html').animate({
-            scrollTop: 0
-        }, 30);
+        $('body,html').animate({ scrollTop: 0 }, 30);
         return false;
-    });
+    })
 
 }
 
@@ -137,18 +85,18 @@ function showli() {
     }).mouseover(function() {
         $(this).addClass("select").siblings().removeClass("select");
 
-    });
+    })
 
 }
 /**
  * 导航里面动态删除导航选项，比如添加音乐，
  */
 function openAdd() {
-    var addBtn = $("#add-click");
+    var addBtn = $("#add-click")
     addBtn.click(function() {
         var openSetup = $("#setup-menu");
         openSetup.slideToggle(200);
-    });
+    })
 }
 
 
@@ -181,7 +129,7 @@ function deleteSetup() {
         // 实时的删除，找到匹配该字符的LI并删除
         $("#menu-list li").filter(":contains('" + text + "')").remove();
 
-    });
+    })
 }
 
 
@@ -198,8 +146,8 @@ function addSetup() {
     //添加点击事件
     $addli.click(function() {
         var abc = $(this).data("id");
-        console.log("add");
-        //得到点击的索引值
+        console.log("add")
+            //得到点击的索引值
         var index = $addli.index(this);
         //得到要添加的li
         var addLi = $addli.eq(index).remove();
@@ -222,9 +170,9 @@ function addSetup() {
 function showHot() {
     $(window).scroll(function() {
         //获取滚动条的高度
-        var scrollH = $(window).scrollTop();
-        // console.log(scrollH);
-        //获取导航可以滚动的高度
+        var scrollH = $(window).scrollTop()
+            // console.log(scrollH);
+            //获取导航可以滚动的高度
         var hotScroll = $(".content-left").height() - $("#hot").height();
         // console.log(hotScroll);
         if (scrollH > 150 && scrollH < hotScroll + 150) {
@@ -233,17 +181,17 @@ function showHot() {
                 top: scrollH,
                 right: "",
                 "z-index": 100
-            });
+            })
         } else {
             $("#hot").css({
                 position: "absolute",
                 top: "0px",
                 right: "5px",
 
-            });
+            })
         }
 
-    });
+    })
 }
 
 /**
@@ -258,15 +206,15 @@ function showp() {
             $skintext.eq(this.id).css({
                 "opacity": 1,
                 "background": "#666"
-            });
-        });
+            })
+        })
         $jswebmenu.eq(index).on("mouseout", function() {
             $skintext.eq(this.id).css({
                 "opacity": 0,
                 "background": ""
-            });
-        });
-    });
+            })
+        })
+    })
 }
 /**
  * 关闭换肤功能
@@ -274,11 +222,11 @@ function showp() {
 
 function closeSkin() {
     $(".js-close").on("click", function() {
-        $("#cgskin").fadeOut(300);
-    });
+        $("#cgskin").fadeOut(300)
+    })
     $(".js-open").on("click", function() {
         $("#cgskin").fadeIn(300);
-    });
+    })
 }
 /**
  * 点击实现换肤功能
@@ -291,10 +239,7 @@ function changeskin() {
     var bgpic = localStorage.getItem("bgpic");
     //检查是否有设置localStorage
     if (bgpic) {
-        $container.css({
-            "background-image": "url( " + bgpic + " )",
-            "background-size": "100%"
-        });
+        $container.css({ "background-image": "url( " + bgpic + " )", "background-size": "100%" });
         $bdpic.removeClass("main-top-pic").addClass("main-top-pic2");
     } else {
         $bdpic.removeClass("main-top-pic2").addClass("main-top-pic");
@@ -302,34 +247,31 @@ function changeskin() {
     $(".skin-text").each(function(index) {
         //得到点击图片的src并设置背景
         $(this).on("click", function() {
-            var src = $pics.eq(index).attr("src");
-            $container.css({
-                "background-image": "url( " + src + " )",
-                "background-size": "100%"
-            });
-            $(".close-setskin").fadeIn(100); //显示换肤
-            $(".cgopacity").fadeIn(100); //显示透明度
-            $bdpic.removeClass("main-top-pic").addClass("main-top-pic2");
-            localStorage.setItem("bgpic", src)
-        });
-        //不使用换肤功能背景设置白色
+                var src = $pics.eq(index).attr("src");
+                $container.css({ "background-image": "url( " + src + " )", "background-size": "100%" });
+                $(".close-setskin").fadeIn(100); //显示换肤
+                $(".cgopacity").fadeIn(100) //显示透明度
+                $bdpic.removeClass("main-top-pic").addClass("main-top-pic2");
+                localStorage.setItem("bgpic", src)
+            })
+            //不使用换肤功能背景设置白色
         $(".close-setskin").on("click", function() {
             $container.css("background", "#fff");
-            $(".close-setskin").fadeOut(100); //关闭换肤
+            $(".close-setskin").fadeOut(100) //关闭换肤
             $(".cgopacity").fadeOut(100) //关闭透明度
             $bdpic.removeClass("main-top-pic2").addClass("main-top-pic");
             //清空
             localStorage.removeItem("bgpic");
-        });
+        })
 
         //移动到图片的时候得到src
         $(this).hover(function() {
             var srcs = $pics.eq(index).attr("src");
-            $preview.attr("src", srcs);
+            $preview.attr("src", srcs)
         }, function() {
-            $preview.attr("src", "image/50.jpg");
-        });
-    });
+            $preview.attr("src", "image/50.jpg")
+        })
+    })
 }
 /**
  * @return {监听滚动条的数值}
