@@ -10,6 +10,7 @@ var single = {
         this.scrollUtil.scrollUtil_fixedL();
         this.hoverUtil.hoverUtil_more();
         this.hoverUtil.hoverUtil_setup();
+        this.AjaxUtil.weatherAjax();
     },
     // 滚动单元
     scrollUtil: {
@@ -23,15 +24,15 @@ var single = {
                     $cgnav.removeClass("fixed-search").addClass("head-search");
 
                 }
-            })
+            });
         },
         // 固定侧边栏
         scrollUtil_fixedL: function() {
             $(window).scroll(function() {
                 //获取滚动条的高度
-                var scrollH = $(window).scrollTop()
-                    // console.log(scrollH);
-                    //获取导航可以滚动的高度
+                var scrollH = $(window).scrollTop();
+                // console.log(scrollH);
+                //获取导航可以滚动的高度
                 var hotScroll = $(".content-left").height() - $("#hot").height();
                 // console.log(hotScroll);
                 if (scrollH > 150 && scrollH < hotScroll + 150) {
@@ -40,16 +41,16 @@ var single = {
                         top: scrollH,
                         right: "",
                         "z-index": 100
-                    })
+                    });
                 } else {
                     $("#hot").css({
                         position: "absolute",
                         top: "0px",
                         right: "5px",
-                    })
+                    });
                 }
 
-            })
+            });
         }
     },
     // 鼠标移入移除util
@@ -78,11 +79,54 @@ var single = {
                     $submenu.fadeIn(50);
                 }, function() {
                     $submenu.fadeOut(50);
-                })
+                });
 
             }, function() {
-                $submenu.fadeOut(50)
-            })
+                $submenu.fadeOut(50);
+            });
+        }
+    },
+    AjaxUtil: {
+        weatherAjax: function() {
+            // 获取到天气div
+            var $weather = $('#weatherShow');
+            var $otherDay = $('#otherDay');
+            $.ajax({
+                url: 'http://v.juhe.cn/weather/index',
+                type: 'get',
+                dataType: 'jsonp',
+                data: {
+                    fomat: 1,
+                    cityname: '深圳',
+                    key: 'f99fbc2ae2567d991714acaf473d7eff'
+                },
+                success: function(data) {
+                    $('#icont').before('<span id="city"></span>');
+                    // 获取到城市
+                    var $cityShow = $('#city').html(data.result.today.city);
+                    // 获取到温度
+                    var $temShow = $('<span>').html(data.result.today.temperature);
+                    // 获取到星期
+                    var $weekShow = $('<span>').html(data.result.today.week);
+                    $weather.append($temShow, $weekShow);
+                    var future = data.result.future;
+                    for (var i in future) {
+                        // 这里是下拉菜单
+                        var $data = future[i].date;
+                        var $month = $data.slice(4, 6) + '月';
+                        var $day = $data.slice(6, 8) + '日';
+                        var $Date = $month.concat($day);
+                        var $todayData = $('<p></p>').html($Date);
+                        // $('#ul-menu').before($todayData);
+                        // 下拉菜单--温度
+                        var $pTem = $('<p>').html(future[i].temperature);
+                        var $pWeek = $('<p>').html(future[i].week);
+                        var $pWeather = $('<p>').html(future[i].weather);
+                        var lis = $('<li>').append($todayData, $pTem, $pWeek, $pWeather);
+                        $('#ul-menu').append(lis);
+                    }
+                }
+            });
         }
     }
 };
@@ -194,9 +238,9 @@ var showli = {
             $(".contentAll>div").eq(index).show().siblings().hide();
         }).mouseover(function() {
             $(this).addClass("select").siblings().removeClass("select");
-        })
+        });
     }
-}
+};
 showli.init();
 
 /**
@@ -233,9 +277,9 @@ var deleteSetup = {
             var text = $(this).text();
             $("#menu-list").find("#" + abc).remove();
             $("#menu-list li").filter(":contains('" + text + "')").remove();
-        })
+        });
     }
-}
+};
 deleteSetup.init();
 /**
  * 导航里面动态添加导航选项，比如添加音乐，
@@ -279,9 +323,9 @@ var addSetup = {
 
         }).click(function() {
             showli.init();
-        })
+        });
     }
-}
+};
 addSetup.init();
 
 
@@ -322,11 +366,11 @@ var cgSkin = {
     showp: function() {
         $("#js-webmenu p").each(function(index) {
             $(this).hover(function() {
-                $(this).css({ "opacity": 1, "background": "#666" })
+                $(this).css({ "opacity": 1, "background": "#666" });
             }, function() {
-                $(this).css({ "opacity": 0, "background": "" })
-            })
-        })
+                $(this).css({ "opacity": 0, "background": "" });
+            });
+        });
     },
     // 返回顶部
     returnTop: function() {
@@ -336,7 +380,7 @@ var cgSkin = {
             } else {
                 $(".returntop").fadeOut(300);
             }
-        })
+        });
         $('body,html').animate({ scrollTop: 0 }, 30);
         return false;
     },
@@ -361,30 +405,30 @@ var cgSkin = {
         $(".skin-text").each(function(index) {
             //得到点击图片的src并设置背景
             $(this).on("click", function() {
-                    var src = $pics.eq(index).attr("src");
-                    $container.css({ "background-image": "url( " + src + " )", "background-size": "100%" });
-                    $(".close-setskin").fadeIn(100); //显示换肤
-                    $(".cgopacity").fadeIn(100) //显示透明度
-                    $bdpic.removeClass("main-top-pic").addClass("main-top-pic2");
-                    localStorage.setItem("bgpic", src)
-                })
-                //不使用换肤功能背景设置白色
+                var src = $pics.eq(index).attr("src");
+                $container.css({ "background-image": "url( " + src + " )", "background-size": "100%" });
+                $(".close-setskin").fadeIn(100); //显示换肤
+                $(".cgopacity").fadeIn(100); //显示透明度
+                $bdpic.removeClass("main-top-pic").addClass("main-top-pic2");
+                localStorage.setItem("bgpic", src);
+            });
+            //不使用换肤功能背景设置白色
             $(".close-setskin").on("click", function() {
-                    $container.css("background", "#fff");
-                    $(".close-setskin").fadeOut(100) //关闭换肤
-                    $(".cgopacity").fadeOut(100) //关闭透明度
-                    $bdpic.removeClass("main-top-pic2").addClass("main-top-pic");
-                    //清空
-                    localStorage.removeItem("bgpic");
-                })
-                //移动到图片的时候得到src
+                $container.css("background", "#fff");
+                $(".close-setskin").fadeOut(100); //关闭换肤
+                $(".cgopacity").fadeOut(100);//关闭透明度
+                $bdpic.removeClass("main-top-pic2").addClass("main-top-pic");
+                //清空
+                localStorage.removeItem("bgpic");
+            });
+            //移动到图片的时候得到src
             $(this).hover(function() {
                 var srcs = $pics.eq(index).attr("src");
-                $preview.attr("src", srcs)
+                $preview.attr("src", srcs);
             }, function() {
                 $preview.attr("src", "image/50.jpg")
-            })
-        })
+            });
+        });
     },
     // 监听背景透明度
     listenOpacity: function() {
@@ -400,7 +444,7 @@ var cgSkin = {
             main.style.opacity = 0.95;
         }
     }
-}
+};
 $(function() {
     cgSkin.init();
-})
+});

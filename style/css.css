@@ -12,26 +12,31 @@
     height: 32px;
     width: 100%;
     min-width: 1100px;
-    background: #9c9fb2;
+    background: #fff;
     position: relative;
+    border-bottom: 1px solid #ebebeb;
 }
 
 .head-nav .left-nav {
     position: absolute;
     top: 0;
     left: 0;
-    margin: 0 0 0 15px;
+    padding-left: 10px;
     height: 32px;
     line-height: 32px;
 }
 
 .head-nav .weather {
     display: inline-block;
-    color: #FFF;
+}
+
+.head-nav .weatherShow {
+    display: inline-block;
+    // color: #FFF;
     font-size: 12px;
 }
 
-.head-nav .weather>span {
+.head-nav .weatherShow>span {
     padding: 0 5px;
     display: inline-block;
 }
@@ -45,17 +50,67 @@
     border-right: 1px solid #fff;
 }
 
+.head-nav .otherDay {
+    display: none;
+    position: absolute;
+    top: 32px;
+    left: 0px;
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    /* padding: 5px 0; */
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.072);
+    width: 600px;
+    text-align: center;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.weather:hover .otherDay {
+    display: block;
+}
+
+.head-nav .otherDay p {
+    font-size: 12px;
+}
+
+.head-nav .otherDay p:hover {
+    color: #38f;
+}
+
+.head-nav .otherDay:before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    /* background: red; */
+    border: 1px solid transparent;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    position: absolute;
+    top: -6px;
+    left: 110px;
+    transform: rotate(45deg);
+}
+
 .head-nav .changeskin {
     display: inline-block;
 }
 
 .head-nav .changeskin a {
     font-size: 12px;
-    color: #fff;
+    color: #333;
     text-decoration: underline;
     margin-right: 20px;
     display: inherit;
 }
+
+.ul-menu li {
+    display: inline-block;
+  width: 14%;
+    border-right: 1px solid #fafafa;
+}
+
+
 
 
 /*换肤*/
@@ -103,6 +158,10 @@
     color: #fff;
     background: #38f;
 }
+
+
+
+
 
 
 /*@-webkit-keyframes demo{
@@ -241,6 +300,7 @@
 .webckshin-preview .preview-pic {}
 
 .webckshin-preview .preview-title {
+    margin: 10px 0 0 0;
     text-align: center;
     font-size: 12px;
     color: #999;
@@ -253,7 +313,7 @@
 
 .right-nav>a {
     display: inline-block;
-    color: #fff;
+    color: #333;
     font-size: 13px;
     height: 32px;
     line-height: 32px;
@@ -265,7 +325,6 @@
     width: 590px;
     height: 180px;
 }
-
 
 /**/
 
@@ -342,6 +401,10 @@
 }
 
 
+
+
+
+
 /**/
 
 .webcgskin-pic .skin-text {
@@ -378,6 +441,10 @@
 }
 
 
+
+
+
+
 /**/
 
 .webcgskin-pic .big-pic {
@@ -391,6 +458,10 @@
     height: 59px;
     line-height: 59px;
 }
+
+
+
+
 
 
 /**/
@@ -491,6 +562,10 @@
     color: #666;
     font-size: 14px;
 }
+
+
+
+
 
 
 /*图片搜索*/
@@ -594,6 +669,10 @@
 }
 
 
+
+
+
+
 /*s搜索框2*/
 
 .fixed-search {
@@ -635,6 +714,10 @@
 }
 
 
+
+
+
+
 /*内容*/
 
 .main-warpper {
@@ -654,8 +737,7 @@
     width: 900px;
     height: 39px;
     border: 1px solid #e9e9e9;
-     box-sizing: border-box;
-
+    box-sizing: border-box;
 }
 
 .left-main {
@@ -678,6 +760,10 @@
 }
 
 
+
+
+
+
 /*    添加设置    */
 
 .addsetup {
@@ -686,6 +772,10 @@
     height: 40px;
     text-align: center;
 }
+
+
+
+
 
 
 /*   订阅频道    */
@@ -812,6 +902,10 @@
 }
 
 
+
+
+
+
 /*  热点   */
 
 .main-content {
@@ -869,6 +963,10 @@
     text-decoration: underline;
     color: #38f;
 }
+
+
+
+
 
 
 /*   内容    */
